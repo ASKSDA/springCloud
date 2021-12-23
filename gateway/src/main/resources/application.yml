@@ -1,0 +1,19 @@
+server:
+  port: 31000
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:10001/eureka,http://peer2:10002/eureka,http://peer3:10003/eureka
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: user
+          uri: lb://openfeign/openfeign
+          predicates:
+            - Path=/user/**
